@@ -1,0 +1,6 @@
+train: /content/yolov5/train
+val: /content/yolov5/valid
+# test: ../test/images
+
+nc: 16
+names: ["bawang merah", "bawang putih", "bombay", "brokoli", "buah bit", "buncis", "daun bawang", "jagung", "kembang kol", "kentang", "pakcoy", "paprika", "terong", "tomat", "ubi", "wortel"]
