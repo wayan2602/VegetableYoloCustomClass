@@ -17,8 +17,8 @@ img = cv2.imread(image_path)
 results = model(img, size=640)
 
 # display the results
-results.print()
-results.show()
+# results.print()
+# results.show()
 
 # extract the bounding boxes, labels, and confidences
 boxes = results.xyxy[0].numpy()
@@ -33,12 +33,24 @@ labels = labels[mask]
 
 for box, label in zip(boxes, labels):
     x1, y1, x2, y2 = box[:4].astype(int)
-    cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
-    cv2.putText(img, classes[int(label)], (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+    cv2.rectangle(results, (x1, y1), (x2, y2), (0, 255, 0), 2)
+    cv2.putText(results, classes[int(label)], (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
 # convert the color space from BGR to RGB
-img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+#img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+# extract the detection results string and extract the relevant part
+detection_str = str(results)
+object_str = detection_str[detection_str.find(":")+2 : detection_str.find("\n")]
+
+object_str = object_str.split(" ")[1:]
+
+# print only the detected objects
+print(" ".join(object_str))
 
 # show the annotated image
-plt.imshow(img)
+cv2.imshow(" d", results)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+# plt.imshow(img)
 plt.show()
